@@ -21,6 +21,7 @@
     --shadow: 0 12px 32px rgba(0, 0, 0, 0.42);
   }
   * { box-sizing: border-box; }
+  html, body { overflow-x: hidden; }
   body {
     margin: 0;
     background: radial-gradient(circle at 18% 0%, #182032 0%, var(--bg) 52%);
@@ -424,6 +425,55 @@
   .lb-nav:hover { border-color: var(--accent); color: var(--accent); }
   .lb-prev { left: 18px; }
   .lb-next { right: 18px; }
+
+  @media (max-width: 768px) {
+    header { position: static; }
+    .wrap { padding: 12px 14px; }
+    .top-row { gap: 8px; }
+    h1 { font-size: 17px; gap: 8px; }
+    .dot { width: 8px; height: 8px; }
+    .stats { gap: 5px; font-size: 11.5px; }
+    .stat-pill { padding: 3px 8px; }
+    .controls { margin-top: 10px; gap: 8px; }
+    .tabs {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      width: 100%;
+      padding-bottom: 2px;
+      gap: 6px;
+    }
+    .tabs::-webkit-scrollbar { display: none; }
+    .tab {
+      flex: 0 0 auto;
+      white-space: nowrap;
+      padding: 6px 12px;
+      font-size: 12.5px;
+    }
+    .actions { width: 100%; flex-wrap: nowrap; gap: 6px; }
+    .search { flex: 1 1 auto; min-width: 0; font-size: 16px; padding: 7px 11px; }
+    .btn { padding: 7px 10px; font-size: 12.5px; white-space: nowrap; flex: 0 0 auto; }
+    .hide-sm { display: none; }
+    .toast { left: 14px; right: 14px; bottom: 14px; text-align: center; }
+  }
+
+  @media (max-width: 640px) {
+    .stat-updated { display: none; }
+    main { padding-bottom: 40px; }
+    .topic-section { margin-top: 18px; }
+    .topic-header { margin-bottom: 12px; }
+    .topic-title { font-size: 16px; }
+    .grid { grid-template-columns: 1fr; gap: 14px; }
+    .preview-box { aspect-ratio: 4 / 3; }
+    .card-body { padding: 11px 13px 13px; gap: 8px; }
+    .chip { max-width: 100%; font-size: 11.5px; }
+    .lb-top { top: 10px; left: 10px; right: 10px; flex-wrap: wrap; gap: 6px; }
+    .lb-meta { font-size: 12px; padding: 6px 10px; max-width: calc(100vw - 20px); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .lb-nav { width: 38px; height: 38px; font-size: 20px; }
+    .lb-prev { left: 8px; }
+    .lb-next { right: 8px; }
+  }
 </style>
 </head>
 <body>
@@ -437,16 +487,10 @@
       <div class="tabs" id="topic-tabs"></div>
       <div class="actions">
         <input type="search" id="search" class="search" placeholder="Поиск по теме, заданию..." />
-        <button class="btn primary" id="connect-fs-btn" onclick="pickPersistentFolder()">📂 Подключить «Инфа 3д» (с диска)</button>
-        <label class="btn" id="fallback-picker-label" style="display:none" title="Выбрать папку вручную">
-          📂 Выбрать папку
-          <input type="file" id="dir-picker" webkitdirectory multiple />
-        </label>
-        <button class="btn live-on" id="auto-btn" onclick="toggleAutoPoll()" title="Автоматически проверять новые файлы каждые 10-15 сек">🟢 Авто-обновление: вкл</button>
-        <button class="btn" onclick="refreshGallery(true)">↻ Обновить</button>
+        <button class="btn live-on" id="auto-btn" onclick="toggleAutoPoll()" title="Автоматически проверять новые файлы каждые 15 сек">🟢 <span class="hide-sm">Авто-обновление </span>(15с)</button>
+        <button class="btn" onclick="refreshGallery(true)" title="Обновить галерею">↻<span class="hide-sm"> Обновить</span></button>
       </div>
     </div>
-    <div class="banner" id="mode-banner" style="display:none"></div>
   </div>
 </header>
 
@@ -457,8 +501,8 @@
   <div class="lb-top">
     <div class="lb-meta" id="lb-meta"></div>
     <div class="lb-actions">
-      <a class="btn" id="lb-open" href="#" target="_blank">Скачать / открыть ↗</a>
-      <button class="btn" onclick="closeLightbox()">✕ Закрыть (Esc)</button>
+      <a class="btn" id="lb-open" href="#" target="_blank">Скачать<span class="hide-sm"> / открыть</span> ↗</a>
+      <button class="btn" onclick="closeLightbox()">✕ Закрыть<span class="hide-sm"> (Esc)</span></button>
     </div>
   </div>
   <button class="lb-nav lb-prev" onclick="stepLightbox(-1)">‹</button>
@@ -466,7 +510,7 @@
   <button class="lb-nav lb-next" onclick="stepLightbox(1)">›</button>
 </div>
 
-<script id="manifest-data" type="application/json">{"generatedAt": "25.11.2026 06:35:59", "githubRepo": "JauneLeaf/infa-3d-gallery", "stats": {"topics": 9, "assignments": 25, "renders": 41, "blends": 34, "videos": 1}, "topics": [{"name": "Тема 1", "assignments": [{"name": "1.1 - Стол и стул", "folderUrl": "", "images": [{"name": "Стол и стул.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%201/1.1%20-%20%D0%A1%D1%82%D0%BE%D0%BB%20%D0%B8%20%D1%81%D1%82%D1%83%D0%BB/%D0%A1%D1%82%D0%BE%D0%BB%20%D0%B8%20%D1%81%D1%82%D1%83%D0%BB.png", "size": "1.4 МБ", "mtime": "25.11 03:19"}], "blends": [{"name": "Стол и стул.blend", "url": "", "size": "110.8 КБ", "mtime": "25.11 03:19"}], "videos": [], "others": []}, {"name": "1.2 - Снеговик", "folderUrl": "", "images": [{"name": "Снеговик.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%201/1.2%20-%20%D0%A1%D0%BD%D0%B5%D0%B3%D0%BE%D0%B2%D0%B8%D0%BA/%D0%A1%D0%BD%D0%B5%D0%B3%D0%BE%D0%B2%D0%B8%D0%BA.png", "size": "1.1 МБ", "mtime": "25.11 03:20"}], "blends": [{"name": "Снеговик.blend", "url": "", "size": "220.4 КБ", "mtime": "25.11 03:19"}], "videos": [], "others": []}]}, {"name": "Тема 2", "assignments": [{"name": "2.1 - Яйцо", "folderUrl": "", "images": [], "blends": [{"name": "Яйцо.blend", "url": "", "size": "123.2 КБ", "mtime": "25.11 03:32"}], "videos": [], "others": []}, {"name": "2.2 - Фонарик", "folderUrl": "", "images": [{"name": "Лампа.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%202/2.2%20-%20%D0%A4%D0%BE%D0%BD%D0%B0%D1%80%D0%B8%D0%BA/%D0%9B%D0%B0%D0%BC%D0%BF%D0%B0.png", "size": "1.6 МБ", "mtime": "07.10 18:41"}, {"name": "Лампа2.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%202/2.2%20-%20%D0%A4%D0%BE%D0%BD%D0%B0%D1%80%D0%B8%D0%BA/%D0%9B%D0%B0%D0%BC%D0%BF%D0%B02.png", "size": "1.7 МБ", "mtime": "07.10 18:43"}, {"name": "Лампа3.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%202/2.2%20-%20%D0%A4%D0%BE%D0%BD%D0%B0%D1%80%D0%B8%D0%BA/%D0%9B%D0%B0%D0%BC%D0%BF%D0%B03.png", "size": "1.7 МБ", "mtime": "07.10 18:45"}, {"name": "Лампа5.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%202/2.2%20-%20%D0%A4%D0%BE%D0%BD%D0%B0%D1%80%D0%B8%D0%BA/%D0%9B%D0%B0%D0%BC%D0%BF%D0%B05.png", "size": "1.7 МБ", "mtime": "07.10 18:58"}], "blends": [{"name": "Фонарик.blend", "url": "", "size": "128.3 КБ", "mtime": "07.10 18:58"}], "videos": [], "others": []}, {"name": "2.3 - Чашка", "folderUrl": "", "images": [{"name": "чашка.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%202/2.3%20-%20%D0%A7%D0%B0%D1%88%D0%BA%D0%B0/%D1%87%D0%B0%D1%88%D0%BA%D0%B0.png", "size": "1.6 МБ", "mtime": "07.10 20:21"}, {"name": "чашка2.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%202/2.3%20-%20%D0%A7%D0%B0%D1%88%D0%BA%D0%B0/%D1%87%D0%B0%D1%88%D0%BA%D0%B02.png", "size": "1.6 МБ", "mtime": "07.10 20:26"}], "blends": [{"name": "Чашка.blend", "url": "", "size": "1.3 МБ", "mtime": "25.11 03:32"}], "videos": [], "others": []}, {"name": "2.4 - Телевизор", "folderUrl": "", "images": [{"name": "Без имени.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%202/2.4%20-%20%D0%A2%D0%B5%D0%BB%D0%B5%D0%B2%D0%B8%D0%B7%D0%BE%D1%80/%D0%91%D0%B5%D0%B7%20%D0%B8%D0%BC%D0%B5%D0%BD%D0%B8.png", "size": "1.7 МБ", "mtime": "07.10 21:59"}], "blends": [{"name": "TV.blend", "url": "", "size": "112.0 КБ", "mtime": "07.10 21:59"}], "videos": [], "others": []}]}, {"name": "Тема 3", "assignments": [{"name": "3.1 - Создание материалов", "folderUrl": "", "images": [{"name": "Итоговый рендер 4к.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%203/3.1%20-%20%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D0%BE%D0%B2/%D0%98%D1%82%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B9%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%204%D0%BA.png", "size": "63.4 МБ", "mtime": "09.10 15:49"}, {"name": "Итоговый рендер.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%203/3.1%20-%20%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D0%BE%D0%B2/%D0%98%D1%82%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B9%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80.png", "size": "2.5 МБ", "mtime": "09.10 15:32"}, {"name": "металл1.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%203/3.1%20-%20%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D0%BE%D0%B2/%D0%BC%D0%B5%D1%82%D0%B0%D0%BB%D0%BB1.png", "size": "2.3 МБ", "mtime": "09.10 06:01"}, {"name": "металл2.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%203/3.1%20-%20%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D0%BE%D0%B2/%D0%BC%D0%B5%D1%82%D0%B0%D0%BB%D0%BB2.png", "size": "2.4 МБ", "mtime": "09.10 07:10"}, {"name": "пластик.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%203/3.1%20-%20%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D0%BE%D0%B2/%D0%BF%D0%BB%D0%B0%D1%81%D1%82%D0%B8%D0%BA.png", "size": "2.7 МБ", "mtime": "09.10 14:37"}, {"name": "Подповерхностное рассеивание.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%203/3.1%20-%20%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D0%BE%D0%B2/%D0%9F%D0%BE%D0%B4%D0%BF%D0%BE%D0%B2%D0%B5%D1%80%D1%85%D0%BD%D0%BE%D1%81%D1%82%D0%BD%D0%BE%D0%B5%20%D1%80%D0%B0%D1%81%D1%81%D0%B5%D0%B8%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5.png", "size": "2.2 МБ", "mtime": "09.10 15:26"}], "blends": [{"name": "шейдер.blend", "url": "", "size": "19.4 МБ", "mtime": "25.11 03:35"}], "videos": [], "others": []}, {"name": "3.2 - Материалы с текстурами", "folderUrl": "", "images": [{"name": "mat1.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%203/3.2%20-%20%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D1%8B%20%D1%81%20%D1%82%D0%B5%D0%BA%D1%81%D1%82%D1%83%D1%80%D0%B0%D0%BC%D0%B8/mat1.png", "size": "1.4 МБ", "mtime": "10.10 00:05"}, {"name": "mat2.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%203/3.2%20-%20%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D1%8B%20%D1%81%20%D1%82%D0%B5%D0%BA%D1%81%D1%82%D1%83%D1%80%D0%B0%D0%BC%D0%B8/mat2.png", "size": "1.5 МБ", "mtime": "10.10 03:02"}, {"name": "mat3.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%203/3.2%20-%20%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D1%8B%20%D1%81%20%D1%82%D0%B5%D0%BA%D1%81%D1%82%D1%83%D1%80%D0%B0%D0%BC%D0%B8/mat3.png", "size": "1.3 МБ", "mtime": "10.10 03:56"}], "blends": [{"name": "материалы с текстурами.blend", "url": "", "size": "67.2 МБ", "mtime": "25.11 03:35"}], "videos": [], "others": []}, {"name": "3.3 - Развертка", "folderUrl": "", "images": [{"name": "бочка.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%203/3.3%20-%20%D0%A0%D0%B0%D0%B7%D0%B2%D0%B5%D1%80%D1%82%D0%BA%D0%B0/%D0%B1%D0%BE%D1%87%D0%BA%D0%B0.png", "size": "2.0 МБ", "mtime": "11.10 02:47"}], "blends": [{"name": "UV-развертки.blend", "url": "", "size": "3.6 МБ", "mtime": "25.11 03:35"}], "videos": [], "others": []}]}, {"name": "Тема 4", "assignments": [{"name": "4.1 - Логические операции", "folderUrl": "", "images": [{"name": "Логические операции.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%204/4.1%20-%20%D0%9B%D0%BE%D0%B3%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B5%20%D0%BE%D0%BF%D0%B5%D1%80%D0%B0%D1%86%D0%B8%D0%B8/%D0%9B%D0%BE%D0%B3%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B5%20%D0%BE%D0%BF%D0%B5%D1%80%D0%B0%D1%86%D0%B8%D0%B8.png", "size": "2.1 МБ", "mtime": "25.11 03:58"}], "blends": [{"name": "Логические операции.blend", "url": "", "size": "276.6 КБ", "mtime": "25.11 03:58"}], "videos": [], "others": []}, {"name": "4.2 - Лодка", "folderUrl": "", "images": [{"name": "Лодка.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%204/4.2%20-%20%D0%9B%D0%BE%D0%B4%D0%BA%D0%B0/%D0%9B%D0%BE%D0%B4%D0%BA%D0%B0.png", "size": "1.8 МБ", "mtime": "25.11 03:51"}], "blends": [{"name": "Лодка.blend", "url": "", "size": "96.4 КБ", "mtime": "25.11 03:51"}], "videos": [], "others": []}, {"name": "4.3 - Пальма", "folderUrl": "", "images": [{"name": "Пальма.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%204/4.3%20-%20%D0%9F%D0%B0%D0%BB%D1%8C%D0%BC%D0%B0/%D0%9F%D0%B0%D0%BB%D1%8C%D0%BC%D0%B0.png", "size": "1.3 МБ", "mtime": "25.11 03:50"}], "blends": [{"name": "Пальма.blend", "url": "", "size": "126.8 КБ", "mtime": "25.11 03:50"}], "videos": [], "others": []}, {"name": "4.4 - Камни", "folderUrl": "", "images": [{"name": "Камни.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%204/4.4%20-%20%D0%9A%D0%B0%D0%BC%D0%BD%D0%B8/%D0%9A%D0%B0%D0%BC%D0%BD%D0%B8.png", "size": "2.0 МБ", "mtime": "25.11 03:49"}], "blends": [{"name": "Камни.blend", "url": "", "size": "201.5 КБ", "mtime": "25.11 03:49"}], "videos": [], "others": []}, {"name": "4.5 - Сцена с лодкой", "folderUrl": "", "images": [{"name": "Сцена с лодкой.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%204/4.5%20-%20%D0%A1%D1%86%D0%B5%D0%BD%D0%B0%20%D1%81%20%D0%BB%D0%BE%D0%B4%D0%BA%D0%BE%D0%B9/%D0%A1%D1%86%D0%B5%D0%BD%D0%B0%20%D1%81%20%D0%BB%D0%BE%D0%B4%D0%BA%D0%BE%D0%B9.png", "size": "1.3 МБ", "mtime": "25.11 04:19"}], "blends": [{"name": "Сцена с лодкой.blend", "url": "", "size": "44.6 МБ", "mtime": "25.11 04:18"}], "videos": [], "others": []}, {"name": "4.6 - Стеллаж", "folderUrl": "", "images": [{"name": "Стеллаж.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%204/4.6%20-%20%D0%A1%D1%82%D0%B5%D0%BB%D0%BB%D0%B0%D0%B6/%D0%A1%D1%82%D0%B5%D0%BB%D0%BB%D0%B0%D0%B6.png", "size": "1.1 МБ", "mtime": "25.11 04:03"}], "blends": [{"name": "Стеллаж.blend", "url": "", "size": "45.7 МБ", "mtime": "25.11 04:02"}], "videos": [], "others": []}, {"name": "4.7 - Лимон", "folderUrl": "", "images": [{"name": "Лимон.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%204/4.7%20-%20%D0%9B%D0%B8%D0%BC%D0%BE%D0%BD/%D0%9B%D0%B8%D0%BC%D0%BE%D0%BD.png", "size": "2.8 МБ", "mtime": "25.11 04:07"}], "blends": [{"name": "Лимон.blend", "url": "", "size": "554.8 КБ", "mtime": "25.11 04:07"}], "videos": [], "others": []}]}, {"name": "Тема 5", "assignments": [{"name": "5.1 - Кривые", "folderUrl": "", "images": [{"name": "Кривые.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%205/5.1%20-%20%D0%9A%D1%80%D0%B8%D0%B2%D1%8B%D0%B5/%D0%9A%D1%80%D0%B8%D0%B2%D1%8B%D0%B5.png", "size": "2.0 МБ", "mtime": "25.11 04:23"}], "blends": [{"name": "Кривые.blend", "url": "", "size": "105.5 КБ", "mtime": "25.11 04:23"}], "videos": [], "others": []}, {"name": "5.2 - Свеча", "folderUrl": "", "images": [{"name": "Свеча.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%205/5.2%20-%20%D0%A1%D0%B2%D0%B5%D1%87%D0%B0/%D0%A1%D0%B2%D0%B5%D1%87%D0%B0.png", "size": "1.5 МБ", "mtime": "25.11 04:31"}], "blends": [{"name": "Свеча.blend", "url": "", "size": "2.1 МБ", "mtime": "25.11 04:31"}], "videos": [], "others": []}]}, {"name": "Тема 6", "assignments": [{"name": "6.1 - Симуляция ткани", "folderUrl": "", "images": [{"name": "Подушки.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%206/6.1%20-%20%D0%A1%D0%B8%D0%BC%D1%83%D0%BB%D1%8F%D1%86%D0%B8%D1%8F%20%D1%82%D0%BA%D0%B0%D0%BD%D0%B8/%D0%9F%D0%BE%D0%B4%D1%83%D1%88%D0%BA%D0%B8.png", "size": "1.1 МБ", "mtime": "25.11 05:03"}, {"name": "Полотенце.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%206/6.1%20-%20%D0%A1%D0%B8%D0%BC%D1%83%D0%BB%D1%8F%D1%86%D0%B8%D1%8F%20%D1%82%D0%BA%D0%B0%D0%BD%D0%B8/%D0%9F%D0%BE%D0%BB%D0%BE%D1%82%D0%B5%D0%BD%D1%86%D0%B5.png", "size": "1.2 МБ", "mtime": "25.11 05:03"}, {"name": "Пуфик.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%206/6.1%20-%20%D0%A1%D0%B8%D0%BC%D1%83%D0%BB%D1%8F%D1%86%D0%B8%D1%8F%20%D1%82%D0%BA%D0%B0%D0%BD%D0%B8/%D0%9F%D1%83%D1%84%D0%B8%D0%BA.png", "size": "1.2 МБ", "mtime": "25.11 05:03"}, {"name": "Ткань и ваза.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%206/6.1%20-%20%D0%A1%D0%B8%D0%BC%D1%83%D0%BB%D1%8F%D1%86%D0%B8%D1%8F%20%D1%82%D0%BA%D0%B0%D0%BD%D0%B8/%D0%A2%D0%BA%D0%B0%D0%BD%D1%8C%20%D0%B8%20%D0%B2%D0%B0%D0%B7%D0%B0.png", "size": "1008.1 КБ", "mtime": "25.11 05:03"}, {"name": "Шторка.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%206/6.1%20-%20%D0%A1%D0%B8%D0%BC%D1%83%D0%BB%D1%8F%D1%86%D0%B8%D1%8F%20%D1%82%D0%BA%D0%B0%D0%BD%D0%B8/%D0%A8%D1%82%D0%BE%D1%80%D0%BA%D0%B0.png", "size": "1.3 МБ", "mtime": "25.11 05:03"}], "blends": [{"name": "Подушки.blend", "url": "", "size": "4.1 МБ", "mtime": "25.11 05:03"}, {"name": "Полотенце.blend", "url": "", "size": "1.8 МБ", "mtime": "25.11 05:03"}, {"name": "Пуфик.blend", "url": "", "size": "1.6 МБ", "mtime": "25.11 05:03"}, {"name": "Ткань и ваза.blend", "url": "", "size": "6.0 МБ", "mtime": "25.11 05:03"}, {"name": "Шторка.blend", "url": "", "size": "3.2 МБ", "mtime": "25.11 05:03"}], "videos": [], "others": []}, {"name": "6.2 - Корзина для бумаг", "folderUrl": "", "images": [{"name": "Корзина.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%206/6.2%20-%20%D0%9A%D0%BE%D1%80%D0%B7%D0%B8%D0%BD%D0%B0%20%D0%B4%D0%BB%D1%8F%20%D0%B1%D1%83%D0%BC%D0%B0%D0%B3/%D0%9A%D0%BE%D1%80%D0%B7%D0%B8%D0%BD%D0%B0.png", "size": "1.2 МБ", "mtime": "25.11 04:54"}], "blends": [{"name": "Бумага анимация.blend", "url": "", "size": "3.3 МБ", "mtime": "25.11 04:54"}, {"name": "Корзина.blend", "url": "", "size": "701.0 КБ", "mtime": "25.11 04:54"}, {"name": "Смятая бумага.blend", "url": "", "size": "426.4 КБ", "mtime": "25.11 04:54"}], "videos": [{"name": "0001-0050.avi", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%206/6.2%20-%20%D0%9A%D0%BE%D1%80%D0%B7%D0%B8%D0%BD%D0%B0%20%D0%B4%D0%BB%D1%8F%20%D0%B1%D1%83%D0%BC%D0%B0%D0%B3/0001-0050.avi", "size": "1.1 МБ", "mtime": "25.11 04:54"}], "others": []}]}, {"name": "Тема 7 (доп)", "assignments": [{"name": "7.1 - Развертка стула", "folderUrl": "", "images": [{"name": "Развертка стула.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%207%20%28%D0%B4%D0%BE%D0%BF%29/7.1%20-%20%D0%A0%D0%B0%D0%B7%D0%B2%D0%B5%D1%80%D1%82%D0%BA%D0%B0%20%D1%81%D1%82%D1%83%D0%BB%D0%B0/%D0%A0%D0%B0%D0%B7%D0%B2%D0%B5%D1%80%D1%82%D0%BA%D0%B0%20%D1%81%D1%82%D1%83%D0%BB%D0%B0.png", "size": "1.0 МБ", "mtime": "25.11 05:26"}], "blends": [{"name": "Развертка стула.blend", "url": "", "size": "10.3 МБ", "mtime": "25.11 05:23"}], "videos": [], "others": []}, {"name": "7.2 - Шерсть кота", "folderUrl": "", "images": [{"name": "Шерсть кота.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%207%20%28%D0%B4%D0%BE%D0%BF%29/7.2%20-%20%D0%A8%D0%B5%D1%80%D1%81%D1%82%D1%8C%20%D0%BA%D0%BE%D1%82%D0%B0/%D0%A8%D0%B5%D1%80%D1%81%D1%82%D1%8C%20%D0%BA%D0%BE%D1%82%D0%B0.png", "size": "2.6 МБ", "mtime": "25.11 05:23"}], "blends": [{"name": "Шерсть кота.blend", "url": "", "size": "41.9 МБ", "mtime": "25.11 05:22"}], "videos": [], "others": []}, {"name": "7.3 - Лего мозаика", "folderUrl": "", "images": [{"name": "Лего мозаика — Майнкрафт.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%207%20%28%D0%B4%D0%BE%D0%BF%29/7.3%20-%20%D0%9B%D0%B5%D0%B3%D0%BE%20%D0%BC%D0%BE%D0%B7%D0%B0%D0%B8%D0%BA%D0%B0/%D0%9B%D0%B5%D0%B3%D0%BE%20%D0%BC%D0%BE%D0%B7%D0%B0%D0%B8%D0%BA%D0%B0%20%E2%80%94%20%D0%9C%D0%B0%D0%B9%D0%BD%D0%BA%D1%80%D0%B0%D1%84%D1%82.png", "size": "2.9 МБ", "mtime": "25.11 06:33"}, {"name": "Лего мозаика.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%207%20%28%D0%B4%D0%BE%D0%BF%29/7.3%20-%20%D0%9B%D0%B5%D0%B3%D0%BE%20%D0%BC%D0%BE%D0%B7%D0%B0%D0%B8%D0%BA%D0%B0/%D0%9B%D0%B5%D0%B3%D0%BE%20%D0%BC%D0%BE%D0%B7%D0%B0%D0%B8%D0%BA%D0%B0.png", "size": "3.0 МБ", "mtime": "25.11 05:29"}], "blends": [{"name": "Лего мозаика — Майнкрафт.blend", "url": "", "size": "57.3 МБ", "mtime": "25.11 06:33"}, {"name": "Лего массив.blend", "url": "", "size": "21.0 МБ", "mtime": "25.11 05:28"}, {"name": "Лего мозаика.blend", "url": "", "size": "49.5 МБ", "mtime": "25.11 05:28"}], "videos": [], "others": []}]}, {"name": "Тема 8", "assignments": [{"name": "8 - Визуализация интерьера", "folderUrl": "", "images": [{"name": "Интерьер вечер.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%208/8%20-%20%D0%92%D0%B8%D0%B7%D1%83%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D1%8C%D0%B5%D1%80%D0%B0/%D0%98%D0%BD%D1%82%D0%B5%D1%80%D1%8C%D0%B5%D1%80%20%D0%B2%D0%B5%D1%87%D0%B5%D1%80.png", "size": "1.7 МБ", "mtime": "25.11 06:11"}, {"name": "Интерьер день.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%208/8%20-%20%D0%92%D0%B8%D0%B7%D1%83%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D1%8C%D0%B5%D1%80%D0%B0/%D0%98%D0%BD%D1%82%D0%B5%D1%80%D1%8C%D0%B5%D1%80%20%D0%B4%D0%B5%D0%BD%D1%8C.png", "size": "1.8 МБ", "mtime": "25.11 06:11"}], "blends": [{"name": "Интерьер вечер.blend", "url": "", "size": "113.7 МБ", "mtime": "25.11 06:10"}, {"name": "Интерьер день.blend", "url": "", "size": "114.3 МБ", "mtime": "25.11 06:10"}], "videos": [], "others": []}]}, {"name": "Тема 8.1", "assignments": [{"name": "8.1 - Гостиная", "folderUrl": "", "images": [{"name": "Гостиная.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%208.1/8.1%20-%20%D0%93%D0%BE%D1%81%D1%82%D0%B8%D0%BD%D0%B0%D1%8F/%D0%93%D0%BE%D1%81%D1%82%D0%B8%D0%BD%D0%B0%D1%8F.png", "size": "1.8 МБ", "mtime": "25.11 06:25"}], "blends": [{"name": "Гостиная.blend", "url": "", "size": "140.0 МБ", "mtime": "25.11 06:24"}], "videos": [], "others": []}]}]}</script>
+<script id="manifest-data" type="application/json">{"generatedAt": "25.11.2026 06:41:37", "githubRepo": "JauneLeaf/infa-3d-gallery", "stats": {"topics": 9, "assignments": 25, "renders": 41, "blends": 34, "videos": 1}, "topics": [{"name": "Тема 1", "assignments": [{"name": "1.1 - Стол и стул", "folderUrl": "", "images": [{"name": "Стол и стул.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%201/1.1%20-%20%D0%A1%D1%82%D0%BE%D0%BB%20%D0%B8%20%D1%81%D1%82%D1%83%D0%BB/%D0%A1%D1%82%D0%BE%D0%BB%20%D0%B8%20%D1%81%D1%82%D1%83%D0%BB.png", "size": "1.4 МБ", "mtime": "25.11 03:19"}], "blends": [{"name": "Стол и стул.blend", "url": "", "size": "110.8 КБ", "mtime": "25.11 03:19"}], "videos": [], "others": []}, {"name": "1.2 - Снеговик", "folderUrl": "", "images": [{"name": "Снеговик.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%201/1.2%20-%20%D0%A1%D0%BD%D0%B5%D0%B3%D0%BE%D0%B2%D0%B8%D0%BA/%D0%A1%D0%BD%D0%B5%D0%B3%D0%BE%D0%B2%D0%B8%D0%BA.png", "size": "1.1 МБ", "mtime": "25.11 03:20"}], "blends": [{"name": "Снеговик.blend", "url": "", "size": "220.4 КБ", "mtime": "25.11 03:19"}], "videos": [], "others": []}]}, {"name": "Тема 2", "assignments": [{"name": "2.1 - Яйцо", "folderUrl": "", "images": [], "blends": [{"name": "Яйцо.blend", "url": "", "size": "123.2 КБ", "mtime": "25.11 03:32"}], "videos": [], "others": []}, {"name": "2.2 - Фонарик", "folderUrl": "", "images": [{"name": "Лампа.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%202/2.2%20-%20%D0%A4%D0%BE%D0%BD%D0%B0%D1%80%D0%B8%D0%BA/%D0%9B%D0%B0%D0%BC%D0%BF%D0%B0.png", "size": "1.6 МБ", "mtime": "07.10 18:41"}, {"name": "Лампа2.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%202/2.2%20-%20%D0%A4%D0%BE%D0%BD%D0%B0%D1%80%D0%B8%D0%BA/%D0%9B%D0%B0%D0%BC%D0%BF%D0%B02.png", "size": "1.7 МБ", "mtime": "07.10 18:43"}, {"name": "Лампа3.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%202/2.2%20-%20%D0%A4%D0%BE%D0%BD%D0%B0%D1%80%D0%B8%D0%BA/%D0%9B%D0%B0%D0%BC%D0%BF%D0%B03.png", "size": "1.7 МБ", "mtime": "07.10 18:45"}, {"name": "Лампа5.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%202/2.2%20-%20%D0%A4%D0%BE%D0%BD%D0%B0%D1%80%D0%B8%D0%BA/%D0%9B%D0%B0%D0%BC%D0%BF%D0%B05.png", "size": "1.7 МБ", "mtime": "07.10 18:58"}], "blends": [{"name": "Фонарик.blend", "url": "", "size": "128.3 КБ", "mtime": "07.10 18:58"}], "videos": [], "others": []}, {"name": "2.3 - Чашка", "folderUrl": "", "images": [{"name": "чашка.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%202/2.3%20-%20%D0%A7%D0%B0%D1%88%D0%BA%D0%B0/%D1%87%D0%B0%D1%88%D0%BA%D0%B0.png", "size": "1.6 МБ", "mtime": "07.10 20:21"}, {"name": "чашка2.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%202/2.3%20-%20%D0%A7%D0%B0%D1%88%D0%BA%D0%B0/%D1%87%D0%B0%D1%88%D0%BA%D0%B02.png", "size": "1.6 МБ", "mtime": "07.10 20:26"}], "blends": [{"name": "Чашка.blend", "url": "", "size": "1.3 МБ", "mtime": "25.11 03:32"}], "videos": [], "others": []}, {"name": "2.4 - Телевизор", "folderUrl": "", "images": [{"name": "Без имени.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%202/2.4%20-%20%D0%A2%D0%B5%D0%BB%D0%B5%D0%B2%D0%B8%D0%B7%D0%BE%D1%80/%D0%91%D0%B5%D0%B7%20%D0%B8%D0%BC%D0%B5%D0%BD%D0%B8.png", "size": "1.7 МБ", "mtime": "07.10 21:59"}], "blends": [{"name": "TV.blend", "url": "", "size": "112.0 КБ", "mtime": "07.10 21:59"}], "videos": [], "others": []}]}, {"name": "Тема 3", "assignments": [{"name": "3.1 - Создание материалов", "folderUrl": "", "images": [{"name": "Итоговый рендер 4к.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%203/3.1%20-%20%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D0%BE%D0%B2/%D0%98%D1%82%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B9%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%204%D0%BA.png", "size": "63.4 МБ", "mtime": "09.10 15:49"}, {"name": "Итоговый рендер.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%203/3.1%20-%20%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D0%BE%D0%B2/%D0%98%D1%82%D0%BE%D0%B3%D0%BE%D0%B2%D1%8B%D0%B9%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80.png", "size": "2.5 МБ", "mtime": "09.10 15:32"}, {"name": "металл1.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%203/3.1%20-%20%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D0%BE%D0%B2/%D0%BC%D0%B5%D1%82%D0%B0%D0%BB%D0%BB1.png", "size": "2.3 МБ", "mtime": "09.10 06:01"}, {"name": "металл2.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%203/3.1%20-%20%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D0%BE%D0%B2/%D0%BC%D0%B5%D1%82%D0%B0%D0%BB%D0%BB2.png", "size": "2.4 МБ", "mtime": "09.10 07:10"}, {"name": "пластик.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%203/3.1%20-%20%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D0%BE%D0%B2/%D0%BF%D0%BB%D0%B0%D1%81%D1%82%D0%B8%D0%BA.png", "size": "2.7 МБ", "mtime": "09.10 14:37"}, {"name": "Подповерхностное рассеивание.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%203/3.1%20-%20%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D0%BE%D0%B2/%D0%9F%D0%BE%D0%B4%D0%BF%D0%BE%D0%B2%D0%B5%D1%80%D1%85%D0%BD%D0%BE%D1%81%D1%82%D0%BD%D0%BE%D0%B5%20%D1%80%D0%B0%D1%81%D1%81%D0%B5%D0%B8%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5.png", "size": "2.2 МБ", "mtime": "09.10 15:26"}], "blends": [{"name": "шейдер.blend", "url": "", "size": "19.4 МБ", "mtime": "25.11 03:35"}], "videos": [], "others": []}, {"name": "3.2 - Материалы с текстурами", "folderUrl": "", "images": [{"name": "mat1.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%203/3.2%20-%20%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D1%8B%20%D1%81%20%D1%82%D0%B5%D0%BA%D1%81%D1%82%D1%83%D1%80%D0%B0%D0%BC%D0%B8/mat1.png", "size": "1.4 МБ", "mtime": "10.10 00:05"}, {"name": "mat2.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%203/3.2%20-%20%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D1%8B%20%D1%81%20%D1%82%D0%B5%D0%BA%D1%81%D1%82%D1%83%D1%80%D0%B0%D0%BC%D0%B8/mat2.png", "size": "1.5 МБ", "mtime": "10.10 03:02"}, {"name": "mat3.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%203/3.2%20-%20%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D1%8B%20%D1%81%20%D1%82%D0%B5%D0%BA%D1%81%D1%82%D1%83%D1%80%D0%B0%D0%BC%D0%B8/mat3.png", "size": "1.3 МБ", "mtime": "10.10 03:56"}], "blends": [{"name": "материалы с текстурами.blend", "url": "", "size": "67.2 МБ", "mtime": "25.11 03:35"}], "videos": [], "others": []}, {"name": "3.3 - Развертка", "folderUrl": "", "images": [{"name": "бочка.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%203/3.3%20-%20%D0%A0%D0%B0%D0%B7%D0%B2%D0%B5%D1%80%D1%82%D0%BA%D0%B0/%D0%B1%D0%BE%D1%87%D0%BA%D0%B0.png", "size": "2.0 МБ", "mtime": "11.10 02:47"}], "blends": [{"name": "UV-развертки.blend", "url": "", "size": "3.6 МБ", "mtime": "25.11 03:35"}], "videos": [], "others": []}]}, {"name": "Тема 4", "assignments": [{"name": "4.1 - Логические операции", "folderUrl": "", "images": [{"name": "Логические операции.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%204/4.1%20-%20%D0%9B%D0%BE%D0%B3%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B5%20%D0%BE%D0%BF%D0%B5%D1%80%D0%B0%D1%86%D0%B8%D0%B8/%D0%9B%D0%BE%D0%B3%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B5%20%D0%BE%D0%BF%D0%B5%D1%80%D0%B0%D1%86%D0%B8%D0%B8.png", "size": "2.1 МБ", "mtime": "25.11 03:58"}], "blends": [{"name": "Логические операции.blend", "url": "", "size": "276.6 КБ", "mtime": "25.11 03:58"}], "videos": [], "others": []}, {"name": "4.2 - Лодка", "folderUrl": "", "images": [{"name": "Лодка.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%204/4.2%20-%20%D0%9B%D0%BE%D0%B4%D0%BA%D0%B0/%D0%9B%D0%BE%D0%B4%D0%BA%D0%B0.png", "size": "1.8 МБ", "mtime": "25.11 03:51"}], "blends": [{"name": "Лодка.blend", "url": "", "size": "96.4 КБ", "mtime": "25.11 03:51"}], "videos": [], "others": []}, {"name": "4.3 - Пальма", "folderUrl": "", "images": [{"name": "Пальма.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%204/4.3%20-%20%D0%9F%D0%B0%D0%BB%D1%8C%D0%BC%D0%B0/%D0%9F%D0%B0%D0%BB%D1%8C%D0%BC%D0%B0.png", "size": "1.3 МБ", "mtime": "25.11 03:50"}], "blends": [{"name": "Пальма.blend", "url": "", "size": "126.8 КБ", "mtime": "25.11 03:50"}], "videos": [], "others": []}, {"name": "4.4 - Камни", "folderUrl": "", "images": [{"name": "Камни.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%204/4.4%20-%20%D0%9A%D0%B0%D0%BC%D0%BD%D0%B8/%D0%9A%D0%B0%D0%BC%D0%BD%D0%B8.png", "size": "2.0 МБ", "mtime": "25.11 03:49"}], "blends": [{"name": "Камни.blend", "url": "", "size": "201.5 КБ", "mtime": "25.11 03:49"}], "videos": [], "others": []}, {"name": "4.5 - Сцена с лодкой", "folderUrl": "", "images": [{"name": "Сцена с лодкой.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%204/4.5%20-%20%D0%A1%D1%86%D0%B5%D0%BD%D0%B0%20%D1%81%20%D0%BB%D0%BE%D0%B4%D0%BA%D0%BE%D0%B9/%D0%A1%D1%86%D0%B5%D0%BD%D0%B0%20%D1%81%20%D0%BB%D0%BE%D0%B4%D0%BA%D0%BE%D0%B9.png", "size": "1.4 МБ", "mtime": "25.11 04:55"}], "blends": [{"name": "Сцена с лодкой.blend", "url": "", "size": "39.9 МБ", "mtime": "25.11 04:55"}], "videos": [], "others": []}, {"name": "4.6 - Стеллаж", "folderUrl": "", "images": [{"name": "Стеллаж.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%204/4.6%20-%20%D0%A1%D1%82%D0%B5%D0%BB%D0%BB%D0%B0%D0%B6/%D0%A1%D1%82%D0%B5%D0%BB%D0%BB%D0%B0%D0%B6.png", "size": "1.1 МБ", "mtime": "25.11 04:03"}], "blends": [{"name": "Стеллаж.blend", "url": "", "size": "45.7 МБ", "mtime": "25.11 04:02"}], "videos": [], "others": []}, {"name": "4.7 - Лимон", "folderUrl": "", "images": [{"name": "Лимон.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%204/4.7%20-%20%D0%9B%D0%B8%D0%BC%D0%BE%D0%BD/%D0%9B%D0%B8%D0%BC%D0%BE%D0%BD.png", "size": "2.8 МБ", "mtime": "25.11 04:07"}], "blends": [{"name": "Лимон.blend", "url": "", "size": "554.8 КБ", "mtime": "25.11 04:07"}], "videos": [], "others": []}]}, {"name": "Тема 5", "assignments": [{"name": "5.1 - Кривые", "folderUrl": "", "images": [{"name": "Кривые.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%205/5.1%20-%20%D0%9A%D1%80%D0%B8%D0%B2%D1%8B%D0%B5/%D0%9A%D1%80%D0%B8%D0%B2%D1%8B%D0%B5.png", "size": "2.0 МБ", "mtime": "25.11 04:23"}], "blends": [{"name": "Кривые.blend", "url": "", "size": "105.5 КБ", "mtime": "25.11 04:23"}], "videos": [], "others": []}, {"name": "5.2 - Свеча", "folderUrl": "", "images": [{"name": "Свеча.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%205/5.2%20-%20%D0%A1%D0%B2%D0%B5%D1%87%D0%B0/%D0%A1%D0%B2%D0%B5%D1%87%D0%B0.png", "size": "1.5 МБ", "mtime": "25.11 04:31"}], "blends": [{"name": "Свеча.blend", "url": "", "size": "2.1 МБ", "mtime": "25.11 04:31"}], "videos": [], "others": []}]}, {"name": "Тема 6", "assignments": [{"name": "6.1 - Симуляция ткани", "folderUrl": "", "images": [{"name": "Подушки.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%206/6.1%20-%20%D0%A1%D0%B8%D0%BC%D1%83%D0%BB%D1%8F%D1%86%D0%B8%D1%8F%20%D1%82%D0%BA%D0%B0%D0%BD%D0%B8/%D0%9F%D0%BE%D0%B4%D1%83%D1%88%D0%BA%D0%B8.png", "size": "1.1 МБ", "mtime": "25.11 05:03"}, {"name": "Полотенце.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%206/6.1%20-%20%D0%A1%D0%B8%D0%BC%D1%83%D0%BB%D1%8F%D1%86%D0%B8%D1%8F%20%D1%82%D0%BA%D0%B0%D0%BD%D0%B8/%D0%9F%D0%BE%D0%BB%D0%BE%D1%82%D0%B5%D0%BD%D1%86%D0%B5.png", "size": "1.2 МБ", "mtime": "25.11 05:03"}, {"name": "Пуфик.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%206/6.1%20-%20%D0%A1%D0%B8%D0%BC%D1%83%D0%BB%D1%8F%D1%86%D0%B8%D1%8F%20%D1%82%D0%BA%D0%B0%D0%BD%D0%B8/%D0%9F%D1%83%D1%84%D0%B8%D0%BA.png", "size": "1.2 МБ", "mtime": "25.11 05:03"}, {"name": "Ткань и ваза.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%206/6.1%20-%20%D0%A1%D0%B8%D0%BC%D1%83%D0%BB%D1%8F%D1%86%D0%B8%D1%8F%20%D1%82%D0%BA%D0%B0%D0%BD%D0%B8/%D0%A2%D0%BA%D0%B0%D0%BD%D1%8C%20%D0%B8%20%D0%B2%D0%B0%D0%B7%D0%B0.png", "size": "1008.1 КБ", "mtime": "25.11 05:03"}, {"name": "Шторка.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%206/6.1%20-%20%D0%A1%D0%B8%D0%BC%D1%83%D0%BB%D1%8F%D1%86%D0%B8%D1%8F%20%D1%82%D0%BA%D0%B0%D0%BD%D0%B8/%D0%A8%D1%82%D0%BE%D1%80%D0%BA%D0%B0.png", "size": "1.3 МБ", "mtime": "25.11 05:03"}], "blends": [{"name": "Подушки.blend", "url": "", "size": "4.1 МБ", "mtime": "25.11 05:03"}, {"name": "Полотенце.blend", "url": "", "size": "1.8 МБ", "mtime": "25.11 05:03"}, {"name": "Пуфик.blend", "url": "", "size": "1.6 МБ", "mtime": "25.11 05:03"}, {"name": "Ткань и ваза.blend", "url": "", "size": "6.0 МБ", "mtime": "25.11 05:03"}, {"name": "Шторка.blend", "url": "", "size": "3.2 МБ", "mtime": "25.11 05:03"}], "videos": [], "others": []}, {"name": "6.2 - Корзина для бумаг", "folderUrl": "", "images": [{"name": "Корзина.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%206/6.2%20-%20%D0%9A%D0%BE%D1%80%D0%B7%D0%B8%D0%BD%D0%B0%20%D0%B4%D0%BB%D1%8F%20%D0%B1%D1%83%D0%BC%D0%B0%D0%B3/%D0%9A%D0%BE%D1%80%D0%B7%D0%B8%D0%BD%D0%B0.png", "size": "1.2 МБ", "mtime": "25.11 04:54"}], "blends": [{"name": "Бумага анимация.blend", "url": "", "size": "3.3 МБ", "mtime": "25.11 04:54"}, {"name": "Корзина.blend", "url": "", "size": "701.0 КБ", "mtime": "25.11 04:54"}, {"name": "Смятая бумага.blend", "url": "", "size": "426.4 КБ", "mtime": "25.11 04:54"}], "videos": [{"name": "0001-0050.avi", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%206/6.2%20-%20%D0%9A%D0%BE%D1%80%D0%B7%D0%B8%D0%BD%D0%B0%20%D0%B4%D0%BB%D1%8F%20%D0%B1%D1%83%D0%BC%D0%B0%D0%B3/0001-0050.avi", "size": "1.1 МБ", "mtime": "25.11 04:54"}], "others": []}]}, {"name": "Тема 7 (доп)", "assignments": [{"name": "7.1 - Развертка стула", "folderUrl": "", "images": [{"name": "Развертка стула.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%207%20%28%D0%B4%D0%BE%D0%BF%29/7.1%20-%20%D0%A0%D0%B0%D0%B7%D0%B2%D0%B5%D1%80%D1%82%D0%BA%D0%B0%20%D1%81%D1%82%D1%83%D0%BB%D0%B0/%D0%A0%D0%B0%D0%B7%D0%B2%D0%B5%D1%80%D1%82%D0%BA%D0%B0%20%D1%81%D1%82%D1%83%D0%BB%D0%B0.png", "size": "1.0 МБ", "mtime": "25.11 05:26"}], "blends": [{"name": "Развертка стула.blend", "url": "", "size": "10.3 МБ", "mtime": "25.11 05:23"}], "videos": [], "others": []}, {"name": "7.2 - Шерсть кота", "folderUrl": "", "images": [{"name": "Шерсть кота.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%207%20%28%D0%B4%D0%BE%D0%BF%29/7.2%20-%20%D0%A8%D0%B5%D1%80%D1%81%D1%82%D1%8C%20%D0%BA%D0%BE%D1%82%D0%B0/%D0%A8%D0%B5%D1%80%D1%81%D1%82%D1%8C%20%D0%BA%D0%BE%D1%82%D0%B0.png", "size": "2.6 МБ", "mtime": "25.11 05:23"}], "blends": [{"name": "Шерсть кота.blend", "url": "", "size": "41.9 МБ", "mtime": "25.11 05:22"}], "videos": [], "others": []}, {"name": "7.3 - Лего мозаика", "folderUrl": "", "images": [{"name": "Лего мозаика — Майнкрафт.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%207%20%28%D0%B4%D0%BE%D0%BF%29/7.3%20-%20%D0%9B%D0%B5%D0%B3%D0%BE%20%D0%BC%D0%BE%D0%B7%D0%B0%D0%B8%D0%BA%D0%B0/%D0%9B%D0%B5%D0%B3%D0%BE%20%D0%BC%D0%BE%D0%B7%D0%B0%D0%B8%D0%BA%D0%B0%20%E2%80%94%20%D0%9C%D0%B0%D0%B9%D0%BD%D0%BA%D1%80%D0%B0%D1%84%D1%82.png", "size": "2.9 МБ", "mtime": "25.11 06:33"}, {"name": "Лего мозаика.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%207%20%28%D0%B4%D0%BE%D0%BF%29/7.3%20-%20%D0%9B%D0%B5%D0%B3%D0%BE%20%D0%BC%D0%BE%D0%B7%D0%B0%D0%B8%D0%BA%D0%B0/%D0%9B%D0%B5%D0%B3%D0%BE%20%D0%BC%D0%BE%D0%B7%D0%B0%D0%B8%D0%BA%D0%B0.png", "size": "3.0 МБ", "mtime": "25.11 05:29"}], "blends": [{"name": "Лего мозаика — Майнкрафт.blend", "url": "", "size": "57.3 МБ", "mtime": "25.11 06:33"}, {"name": "Лего массив.blend", "url": "", "size": "21.0 МБ", "mtime": "25.11 05:28"}, {"name": "Лего мозаика.blend", "url": "", "size": "49.5 МБ", "mtime": "25.11 05:28"}], "videos": [], "others": []}]}, {"name": "Тема 8", "assignments": [{"name": "8 - Визуализация интерьера", "folderUrl": "", "images": [{"name": "Интерьер вечер.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%208/8%20-%20%D0%92%D0%B8%D0%B7%D1%83%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D1%8C%D0%B5%D1%80%D0%B0/%D0%98%D0%BD%D1%82%D0%B5%D1%80%D1%8C%D0%B5%D1%80%20%D0%B2%D0%B5%D1%87%D0%B5%D1%80.png", "size": "1.7 МБ", "mtime": "25.11 06:11"}, {"name": "Интерьер день.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%208/8%20-%20%D0%92%D0%B8%D0%B7%D1%83%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D1%8C%D0%B5%D1%80%D0%B0/%D0%98%D0%BD%D1%82%D0%B5%D1%80%D1%8C%D0%B5%D1%80%20%D0%B4%D0%B5%D0%BD%D1%8C.png", "size": "1.8 МБ", "mtime": "25.11 06:11"}], "blends": [{"name": "Интерьер вечер.blend", "url": "", "size": "113.7 МБ", "mtime": "25.11 06:10"}, {"name": "Интерьер день.blend", "url": "", "size": "114.3 МБ", "mtime": "25.11 06:10"}], "videos": [], "others": []}]}, {"name": "Тема 8.1", "assignments": [{"name": "8.1 - Гостиная", "folderUrl": "", "images": [{"name": "Гостиная.png", "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%208.1/8.1%20-%20%D0%93%D0%BE%D1%81%D1%82%D0%B8%D0%BD%D0%B0%D1%8F/%D0%93%D0%BE%D1%81%D1%82%D0%B8%D0%BD%D0%B0%D1%8F.png", "size": "1.8 МБ", "mtime": "25.11 06:25"}], "blends": [{"name": "Гостиная.blend", "url": "", "size": "140.0 МБ", "mtime": "25.11 06:24"}], "videos": [], "others": []}]}]}</script>
 <script>
 const IMG_RE = /\.(png|jpe?g|webp|gif)$/i;
 const VID_RE = /\.(avi|mp4|mkv|mov|webm)$/i;
@@ -478,8 +522,6 @@ let activeTopic = "ALL";
 let searchQuery = "";
 let flatMedia = [];
 let currentLbIndex = -1;
-let savedDirHandle = null;
-let blobUrlsToRevoke = [];
 let lastSignature = "";
 let autoPollEnabled = true;
 let autoPollTimer = null;
@@ -510,10 +552,10 @@ function updateAutoButton() {
   if (!btn) return;
   if (autoPollEnabled) {
     btn.classList.add("live-on");
-    btn.textContent = savedDirHandle ? "🟢 Авто-обновление (10с)" : "🟢 Авто-обновление (15с)";
+    btn.innerHTML = '🟢 <span class="hide-sm">Авто-обновление </span>(15с)';
   } else {
     btn.classList.remove("live-on");
-    btn.textContent = "⚪ Авто-обновление: выкл";
+    btn.innerHTML = '⚪ <span class="hide-sm">Авто-обновление: </span>выкл';
   }
 }
 
@@ -526,15 +568,9 @@ function toggleAutoPoll() {
 function scheduleAutoPoll() {
   clearInterval(autoPollTimer);
   if (!autoPollEnabled) return;
-  const intervalMs = savedDirHandle ? 10000 : 15000;
   autoPollTimer = setInterval(() => {
     refreshGallery(false);
-  }, intervalMs);
-}
-
-function clearBlobUrls() {
-  blobUrlsToRevoke.forEach(u => URL.revokeObjectURL(u));
-  blobUrlsToRevoke = [];
+  }, 15000);
 }
 
 function naturalNumKey(s) {
@@ -564,151 +600,6 @@ function fmtBytes(n) {
 }
 function encodeSegments(relPath) {
   return relPath.split("/").map(encodeURIComponent).join("/");
-}
-
-function showBanner(html, actionsHtml = "") {
-  const el = document.getElementById("mode-banner");
-  if (!html) { el.style.display = "none"; return; }
-  el.style.display = "flex";
-  el.innerHTML = `<span>${html}</span><span>${actionsHtml}</span>`;
-}
-
-// IndexedDB persistence for FileSystemDirectoryHandle (Chrome / Edge)
-function idbOpen() {
-  return new Promise((resolve, reject) => {
-    const req = indexedDB.open("infa3d-gallery-db", 1);
-    req.onupgradeneeded = () => req.result.createObjectStore("handles");
-    req.onsuccess = () => resolve(req.result);
-    req.onerror = () => reject(req.error);
-  });
-}
-async function idbGetHandle() {
-  try {
-    const db = await idbOpen();
-    return await new Promise((res, rej) => {
-      const tx = db.transaction("handles", "readonly");
-      const r = tx.objectStore("handles").get("root");
-      r.onsuccess = () => res(r.result || null);
-      r.onerror = () => rej(r.error);
-    });
-  } catch { return null; }
-}
-async function idbSaveHandle(h) {
-  try {
-    const db = await idbOpen();
-    await new Promise((res, rej) => {
-      const tx = db.transaction("handles", "readwrite");
-      const r = h ? tx.objectStore("handles").put(h, "root") : tx.objectStore("handles").delete("root");
-      r.onsuccess = () => res();
-      r.onerror = () => rej(r.error);
-    });
-  } catch {}
-}
-
-async function scanDirectoryHandle(rootHandle, notifyOnChange = false) {
-  const topics = [];
-  let renders = 0, blends = 0, videos = 0, totalAssign = 0;
-
-  const topicHandles = [];
-  for await (const [tName, tHandle] of rootHandle.entries()) {
-    if (tHandle.kind === "directory" && !tName.startsWith(".")) {
-      topicHandles.push([tName, tHandle]);
-    }
-  }
-  topicHandles.sort((a, b) => cmpKey(a[0], b[0]));
-
-  const nextBlobUrls = [];
-  for (const [tName, tHandle] of topicHandles) {
-    const assignHandles = [];
-    for await (const [aName, aHandle] of tHandle.entries()) {
-      if (aHandle.kind === "directory" && !aName.startsWith(".")) {
-        assignHandles.push([aName, aHandle]);
-      }
-    }
-    assignHandles.sort((a, b) => cmpKey(a[0], b[0]));
-
-    const assignments = [];
-    for (const [aName, aHandle] of assignHandles) {
-      const images = [], blendList = [], videoList = [], others = [];
-      const fileEntries = [];
-      for await (const [fName, fHandle] of aHandle.entries()) {
-        if (fHandle.kind === "file") fileEntries.push([fName, fHandle]);
-      }
-      fileEntries.sort((a, b) => cmpAssignFile(aName, a[0], b[0]));
-
-      for (const [fName, fHandle] of fileEntries) {
-        const file = await fHandle.getFile();
-        const url = URL.createObjectURL(file);
-        nextBlobUrls.push(url);
-        const item = {
-          name: fName,
-          url,
-          size: fmtBytes(file.size),
-          mtime: String(file.lastModified || "")
-        };
-        if (IMG_RE.test(fName)) { images.push(item); renders++; }
-        else if (BLEND_RE.test(fName)) { blendList.push(item); blends++; }
-        else if (VID_RE.test(fName)) { videoList.push(item); videos++; }
-        else { others.push(item); }
-      }
-      if (images.length || blendList.length || videoList.length || others.length) {
-        assignments.push({ name: aName, folderUrl: "", images, blends: blendList, videos: videoList, others });
-        totalAssign++;
-      }
-    }
-    if (assignments.length) topics.push({ name: tName, assignments });
-  }
-
-  const nextManifest = {
-    generatedAt: new Date().toLocaleString("ru-RU"),
-    githubRepo: manifest.githubRepo || "",
-    stats: { topics: topics.length, assignments: totalAssign, renders, blends, videos },
-    topics
-  };
-  const nextSig = manifestSignature(nextManifest);
-  if (lastSignature && nextSig === lastSignature) {
-    nextBlobUrls.forEach(u => URL.revokeObjectURL(u));
-    return;
-  }
-
-  clearBlobUrls();
-  blobUrlsToRevoke = nextBlobUrls;
-  manifest = nextManifest;
-  sourceLabel = `Папка ПК: ${rootHandle.name}`;
-  updateAutoButton();
-  showBanner(
-    `Подключена локальная папка <strong>${rootHandle.name}</strong> — все новые PNG, видео и .blend подтягиваются автоматически каждые 10 сек без перезаливки на GitHub.`,
-    `<button class="btn" onclick="disconnectLocalFolder()">Отключить папку</button>`
-  );
-  const prevSig = lastSignature;
-  lastSignature = nextSig;
-  if (document.getElementById("lightbox").classList.contains("open")) {
-    pendingManifestUpdate = true;
-    if (notifyOnChange && prevSig) showToast("✨ Появились новые файлы! Обновятся после закрытия просмотра.");
-    return;
-  }
-  renderAll();
-  if (notifyOnChange && prevSig) showToast("✨ Появились новые файлы! Галерея обновлена.");
-}
-
-async function pickPersistentFolder() {
-  if (!window.showDirectoryPicker) {
-    document.getElementById("dir-picker").click();
-    return;
-  }
-  try {
-    const handle = await window.showDirectoryPicker({ mode: "read" });
-    savedDirHandle = handle;
-    await idbSaveHandle(handle);
-    await scanDirectoryHandle(handle, false);
-    scheduleAutoPoll();
-  } catch {}
-}
-
-async function disconnectLocalFolder() {
-  savedDirHandle = null;
-  await idbSaveHandle(null);
-  location.reload();
 }
 
 async function loadFromGitHubLive(notifyOnChange = false) {
@@ -747,19 +638,6 @@ async function loadFromGitHubLive(notifyOnChange = false) {
 }
 
 async function refreshGallery(manual = false) {
-  if (savedDirHandle) {
-    try {
-      const perm = await savedDirHandle.queryPermission({ mode: "read" });
-      if (perm === "granted") {
-        await scanDirectoryHandle(savedDirHandle, true);
-        return;
-      }
-      if (manual && (await savedDirHandle.requestPermission({ mode: "read" })) === "granted") {
-        await scanDirectoryHandle(savedDirHandle, true);
-        return;
-      }
-    } catch {}
-  }
   if (location.protocol !== "file:") {
     await loadFromGitHubLive(true);
   } else if (manual) {
@@ -777,7 +655,7 @@ function renderAll() {
     `<span class="stat-pill">Рендеров: <strong>${s.renders}</strong></span>`,
     `<span class="stat-pill">.blend: <strong>${s.blends}</strong></span>`,
     s.videos ? `<span class="stat-pill">Видео: <strong>${s.videos}</strong></span>` : "",
-    `<span class="stat-pill">Обновлено: <strong>${manifest.generatedAt}</strong></span>`
+    `<span class="stat-pill stat-updated">Обновлено: <strong>${manifest.generatedAt}</strong></span>`
   ].join("");
 
   const tabsEl = document.getElementById("topic-tabs");
@@ -916,8 +794,8 @@ function openLightbox(idx) {
   if (item.kind === "video") {
     stage.innerHTML = item.url
       ? `<video src="${item.url}" controls autoplay loop onerror="this.nextElementSibling.style.display='block'"></video>
-         <div style="display:none;color:#ffd2b2;font-size:13px;text-align:center">Контейнер .avi может не воспроизводиться прямо в браузере — нажмите «Скачать / открыть ↗» или откройте на ПК.</div>`
-      : `<div style="color:#8f9bb3">Видео хранится в локальной папке «Инфа 3д» (подключите её кнопкой выше).</div>`;
+         <div style="display:none;color:#ffd2b2;font-size:13px;text-align:center">Контейнер .avi может не воспроизводиться прямо в браузере — нажмите «Скачать ↗» или откройте на ПК.</div>`
+      : `<div style="color:#8f9bb3">Видео хранится в локальной папке «Инфа 3д».</div>`;
   } else {
     stage.innerHTML = `<img src="${item.url}" alt="${item.name}" />`;
   }
@@ -953,86 +831,25 @@ document.getElementById("search").addEventListener("input", (e) => {
   renderAll();
 });
 
-document.getElementById("dir-picker").addEventListener("change", (e) => {
-  const files = Array.from(e.target.files || []);
-  if (!files.length) return;
-  clearBlobUrls();
-  const map = new Map();
-  let renders = 0, blends = 0, videos = 0, assignmentsCount = 0;
-
-  for (const f of files) {
-    const parts = f.webkitRelativePath.split("/");
-    if (parts.length < 4) continue;
-    const topicName = parts[1], assignName = parts[2], fileName = parts.slice(3).join("/");
-    if (!map.has(topicName)) map.set(topicName, new Map());
-    const assignMap = map.get(topicName);
-    if (!assignMap.has(assignName)) {
-      assignMap.set(assignName, { name: assignName, folderUrl: "", images: [], blends: [], videos: [], others: [] });
-      assignmentsCount++;
-    }
-    const bucket = assignMap.get(assignName);
-    const objUrl = URL.createObjectURL(f);
-    blobUrlsToRevoke.push(objUrl);
-    const entry = { name: fileName, url: objUrl, size: fmtBytes(f.size), mtime: "" };
-    if (IMG_RE.test(fileName)) { bucket.images.push(entry); renders++; }
-    else if (BLEND_RE.test(fileName)) { bucket.blends.push(entry); blends++; }
-    else if (VID_RE.test(fileName)) { bucket.videos.push(entry); videos++; }
+let lbTouchX = null, lbTouchY = null;
+const lbEl = document.getElementById("lightbox");
+lbEl.addEventListener("touchstart", (e) => {
+  if (e.touches && e.touches.length === 1) {
+    lbTouchX = e.touches[0].clientX;
+    lbTouchY = e.touches[0].clientY;
   }
-
-  const topics = Array.from(map.keys()).sort(cmpKey).map(tName => {
-    const aMap = map.get(tName);
-    const assigns = Array.from(aMap.keys()).sort(cmpKey).map(aName => {
-      const b = aMap.get(aName);
-      b.images.sort((x, y) => cmpAssignFile(aName, x.name, y.name));
-      b.blends.sort((x, y) => cmpAssignFile(aName, x.name, y.name));
-      b.videos.sort((x, y) => cmpAssignFile(aName, x.name, y.name));
-      return b;
-    });
-    return { name: tName, assignments: assigns };
-  });
-
-  if (topics.length) {
-    manifest = {
-      generatedAt: new Date().toLocaleString("ru-RU"),
-      githubRepo: manifest.githubRepo || "",
-      stats: { topics: topics.length, assignments: assignmentsCount, renders, blends, videos },
-      topics
-    };
-    sourceLabel = "Папка ПК (выбрано вручную)";
-    renderAll();
+}, { passive: true });
+lbEl.addEventListener("touchend", (e) => {
+  if (lbTouchX === null || !e.changedTouches || !e.changedTouches.length) return;
+  const dx = e.changedTouches[0].clientX - lbTouchX;
+  const dy = e.changedTouches[0].clientY - lbTouchY;
+  lbTouchX = lbTouchY = null;
+  if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) {
+    stepLightbox(dx < 0 ? 1 : -1);
   }
-});
+}, { passive: true });
 
 (async function init() {
-  if (!window.showDirectoryPicker) {
-    document.getElementById("connect-fs-btn").style.display = "none";
-    document.getElementById("fallback-picker-label").style.display = "inline-flex";
-  } else {
-    const h = await idbGetHandle();
-    if (h) {
-      try {
-        if ((await h.queryPermission({ mode: "read" })) === "granted") {
-          savedDirHandle = h;
-          await scanDirectoryHandle(h, false);
-          updateAutoButton();
-          scheduleAutoPoll();
-          return;
-        }
-        showBanner(
-          `Найдена сохранённая папка <strong>${h.name}</strong> — разрешите доступ в 1 клик, чтобы новые файлы с диска подтягивались автоматически.`,
-          `<button class="btn primary" onclick="resumeSavedFolder()">🔓 Подключить «${h.name}»</button>`
-        );
-        window.resumeSavedFolder = async () => {
-          if ((await h.requestPermission({ mode: "read" })) === "granted") {
-            savedDirHandle = h;
-            await scanDirectoryHandle(h, false);
-            updateAutoButton();
-            scheduleAutoPoll();
-          }
-        };
-      } catch {}
-    }
-  }
   lastSignature = manifestSignature(manifest);
   updateAutoButton();
   renderAll();
