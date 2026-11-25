@@ -1,11 +1,11 @@
 {
-  "generatedAt": "25.11.2026 06:27:28",
+  "generatedAt": "25.11.2026 06:35:59",
   "githubRepo": "JauneLeaf/infa-3d-gallery",
   "stats": {
     "topics": 9,
     "assignments": 25,
-    "renders": 40,
-    "blends": 33,
+    "renders": 41,
+    "blends": 34,
     "videos": 1
   },
   "topics": [
@@ -657,6 +657,12 @@
           "folderUrl": "",
           "images": [
             {
+              "name": "Лего мозаика — Майнкрафт.png",
+              "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%207%20%28%D0%B4%D0%BE%D0%BF%29/7.3%20-%20%D0%9B%D0%B5%D0%B3%D0%BE%20%D0%BC%D0%BE%D0%B7%D0%B0%D0%B8%D0%BA%D0%B0/%D0%9B%D0%B5%D0%B3%D0%BE%20%D0%BC%D0%BE%D0%B7%D0%B0%D0%B8%D0%BA%D0%B0%20%E2%80%94%20%D0%9C%D0%B0%D0%B9%D0%BD%D0%BA%D1%80%D0%B0%D1%84%D1%82.png",
+              "size": "2.9 МБ",
+              "mtime": "25.11 06:33"
+            },
+            {
               "name": "Лего мозаика.png",
               "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%207%20%28%D0%B4%D0%BE%D0%BF%29/7.3%20-%20%D0%9B%D0%B5%D0%B3%D0%BE%20%D0%BC%D0%BE%D0%B7%D0%B0%D0%B8%D0%BA%D0%B0/%D0%9B%D0%B5%D0%B3%D0%BE%20%D0%BC%D0%BE%D0%B7%D0%B0%D0%B8%D0%BA%D0%B0.png",
               "size": "3.0 МБ",
@@ -664,6 +670,12 @@
             }
           ],
           "blends": [
+            {
+              "name": "Лего мозаика — Майнкрафт.blend",
+              "url": "",
+              "size": "57.3 МБ",
+              "mtime": "25.11 06:33"
+            },
             {
               "name": "Лего массив.blend",
               "url": "",
