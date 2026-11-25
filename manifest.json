@@ -1,5 +1,5 @@
 {
-  "generatedAt": "25.11.2026 07:28:19",
+  "generatedAt": "25.11.2026 07:39:45",
   "githubRepo": "JauneLeaf/infa-3d-gallery",
   "stats": {
     "topics": 9,
@@ -42,15 +42,15 @@
               "name": "Снеговик.png",
               "url": "media/%D0%A2%D0%B5%D0%BC%D0%B0%201/1.2%20-%20%D0%A1%D0%BD%D0%B5%D0%B3%D0%BE%D0%B2%D0%B8%D0%BA/%D0%A1%D0%BD%D0%B5%D0%B3%D0%BE%D0%B2%D0%B8%D0%BA.png",
               "size": "1.1 МБ",
-              "mtime": "25.11 07:27"
+              "mtime": "25.11 03:20"
             }
           ],
           "blends": [
             {
               "name": "Снеговик.blend",
               "url": "",
-              "size": "218.5 КБ",
-              "mtime": "25.11 07:27"
+              "size": "220.4 КБ",
+              "mtime": "25.11 03:19"
             }
           ],
           "videos": [],
